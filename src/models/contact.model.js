@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const Schema = mongoose.Schema();
+let Schema = mongoose.Schema;
 
-const contactSchema = new Schema({
+let contactSchema = new Schema({
   userId: String,
   contactId: String,
   status: { type: Boolean, default: false },
@@ -11,5 +11,10 @@ const contactSchema = new Schema({
   deletedAt: { type: Number, default: null },
 });
 
+contactSchema.statics = {
+  createNew(item) {
+    return this.create(item);
+  },
+};
 const Contact = mongoose.model("contact", contactSchema);
 module.exports = Contact;

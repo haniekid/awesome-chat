@@ -23,6 +23,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
+    "bluebird": "^3.5.3",
     "express": "^4.16.4"
   }
 }
