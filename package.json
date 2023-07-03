@@ -1,0 +1,28 @@
+{
+  "name": "awesome-chat-app",
+  "version": "1.0.0",
+  "description": "Create Awesome Chat App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec babel-node src/server.js",
+    "build": "babel A -d B"
+  },
+  "keywords": [
+    "nodejs",
+    "node",
+    "express",
+    "babel"
+  ],
+  "author": "haniekid",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "mongoose": "^4.13.9",
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
