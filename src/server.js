@@ -1,4 +1,5 @@
 import express from "express";
+import bodyParser from "body-parser";
 import connectDB from "./config/connectDB";
 import contactModel from "./models/contact.model";
 import configViewEngine from "./config/viewEngine";
@@ -12,6 +13,9 @@ connectDB();
 
 // Config view engine
 configViewEngine(app);
+
+// Enable post data for request
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Init routes
 routes(app);

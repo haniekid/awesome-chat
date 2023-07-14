@@ -1,4 +1,6 @@
 import express from "express";
+import { authController, homeController } from "../controllers";
+import { authValidation } from "../validation";
 
 const router = express.Router();
 /*
@@ -7,13 +9,14 @@ const router = express.Router();
  */
 
 const routes = (app) => {
-  router.get("/", async (req, res) => {
-    res.render("main/master");
-  });
+  router.get("/", homeController.getHome);
 
-  router.get("/login-register", async (req, res) => {
-    return res.render("auth/loginRegister");
-  });
+  router.get("/login-register", authController.getLoginRegister);
+  router.get("/logout", authController.getLogout);
+
+  router.post("/register", authValidation.register, authController.register);
 
   return app.use("/", router);
 };
+
+module.exports = routes;
