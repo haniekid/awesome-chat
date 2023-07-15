@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   userName: String,
@@ -29,6 +29,16 @@ const userSchema = new Schema({
   updatedAt: { type: Number, default: null },
   deletedAt: { type: Number, default: null },
 });
+
+userSchema.statics = {
+  createNew(item) {
+    return this.create(item);
+  },
+
+  findByEmail(email) {
+    return this.findOne({ "local.email": email }).exec();
+  },
+};
 
 const User = mongoose.model("user", userSchema);
 module.exports = User;
