@@ -28,9 +28,9 @@ app.use(connectFlash());
 routes(app);
 
 const hostName = "localhost";
-const port = 3000;
+const port = process.env.APP_PORT || 8080;
 
-app.listen(process.env.APP_PORT, process.env.APP_HOST, (req, res) => {
+app.listen(8080, process.env.APP_HOST, (req, res) => {
   console.log(
     `I'm running at ${process.env.APP_HOST}:${process.env.APP_PORT}/`
   );

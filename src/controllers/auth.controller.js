@@ -27,7 +27,9 @@ const register = async (req, res) => {
     const createUserSuccess = await authService.register(
       req.body.email,
       req.body.password,
-      req.body.gender
+      req.body.gender,
+      req.protocol,
+      req.get("host")
     );
     successArray.push(createUserSuccess);
 
@@ -40,8 +42,25 @@ const register = async (req, res) => {
   }
 };
 
+const verifyAccount = async (req, res, next) => {
+  const errorArr = [];
+  const successArr = [];
+  try {
+    const verifySuccess = await authService.verifyAccount(req.params.token);
+    successArr.push(verifySuccess);
+
+    req.flash("success", successArr);
+    return res.redirect("/login-register");
+  } catch (error) {
+    errorArr.push(error);
+    req.flash("errors", errorArr);
+    return res.redirect("/login-register");
+  }
+};
+
 module.exports = {
   getLoginRegister,
   getLogout,
   register,
+  verifyAccount,
 };

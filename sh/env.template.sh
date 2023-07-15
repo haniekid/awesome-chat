@@ -10,3 +10,9 @@ DB_PASSWORD=
 # Config app environment variables
 APP_HOST=
 APP_PORT=
+
+# Config admin email account
+export MAIL_USER=
+export MAIL_PASSWORD=
+export MAIL_HOST=
+export MAIL_PORT=

@@ -15,6 +15,7 @@ const routes = (app) => {
   router.get("/logout", authController.getLogout);
 
   router.post("/register", authValidation.register, authController.register);
+  router.post("/verify/:token", authController.verifyAccount);
 
   return app.use("/", router);
 };
