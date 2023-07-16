@@ -13,6 +13,9 @@ export const transErrors = {
   account_not_active:
     "Email đã được đăng ký nhưng chưa kích hoạt tài khoản, vui lòng kiểm tra email hoặc liên hệ bộ phận kỹ thuật để đựoc hỗ trợ",
   token_undefined: "Token không tồn tại",
+  login_failed: "Sai tài khoản hoặc mật khẩu",
+  server_error:
+    "Có lỗi phía máy chủ, vui lòng liên hệ với bộ phận kỹ thuật để được hỗ trợ",
 };
 
 export const transSuccess = {
@@ -21,6 +24,9 @@ export const transSuccess = {
   },
   account_actived:
     "Kích hoạt tài khoản thành công, bạn có thể đăng nhập vào Awesome",
+  loginSuccess: (userName) => {
+    return `Xin chào ${userName}, chúc bạn một ngày tốt lành!`;
+  },
 };
 
 export const transMail = {

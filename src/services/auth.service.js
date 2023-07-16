@@ -31,11 +31,9 @@ const register = (email, password, gender, protocol, host) => {
     };
 
     const user = await User.createNew(userInfo);
-    console.log(user);
 
     // send mail
     const linkVerify = `${protocol}://${host}/verify/${user.local.verifyToken}`;
-    console.log(linkVerify);
     sendMail(email, transMail.subject, transMail.template(linkVerify))
       .then((success) => {
         resolve(transSuccess.userCreated(user.local.email));
@@ -60,6 +58,7 @@ const verifyAccount = (token) => {
     resolve(transSuccess.account_actived);
   });
 };
+
 module.exports = {
   register,
   verifyAccount,

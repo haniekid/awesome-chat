@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  userName: String,
+  username: String,
   gender: { type: String, enum: ["male", "female"], default: "male" },
   phone: { type: Number, default: null },
   address: { type: String, default: null },
@@ -53,6 +54,16 @@ userSchema.statics = {
       { "local.isActive": true },
       { "local.verifyToken": null }
     ).exec();
+  },
+
+  findUserById(userId) {
+    return this.findById(userId).exec();
+  },
+};
+
+userSchema.methods = {
+  comparePassword(password) {
+    return bcrypt.compare(password, this.local.password); // return a promise has result is true or false
   },
 };
 
