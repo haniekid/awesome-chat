@@ -61,7 +61,7 @@ const initPassportLocal = () => {
     )
   );
 
-  //   Save userId to session
+  //   Save userId to session passport
   passport.serializeUser((user, done) => {
     done(null, user._id);
   });

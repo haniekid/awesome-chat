@@ -15,14 +15,12 @@ const router = express.Router();
  */
 
 const routes = (app) => {
-  router.get("/", homeController.getHome);
+  router.get("/", authController.checkLoggedIn, homeController.getHome);
+  router.get("/logout", authController.checkLoggedIn, authController.getLogout);
+
+  router.use(authController.checkLoggedOut);
 
   router.get("/login-register", authController.getLoginRegister);
-  router.get("/logout", authController.getLogout);
-
-  router.post("/register", authValidation.register, authController.register);
-  router.post("/verify/:token", authController.verifyAccount);
-
   router.post(
     "/login",
     passport.authenticate("local", {
@@ -32,7 +30,8 @@ const routes = (app) => {
       failureFlash: true,
     })
   );
-
+  router.post("/register", authValidation.register, authController.register);
+  router.post("/verify/:token", authController.verifyAccount);
   return app.use("/", router);
 };
 

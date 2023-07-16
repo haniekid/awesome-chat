@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator/check");
 import { authService } from "../services";
+import { transSuccess } from "../../lang/vi";
 
 const getLoginRegister = async (req, res) => {
   return res.render("auth/master", {
@@ -7,8 +8,6 @@ const getLoginRegister = async (req, res) => {
     success: req.flash("success"),
   });
 };
-
-const getLogout = async (req, res) => {};
 
 const register = async (req, res) => {
   const errorArray = [];
@@ -58,9 +57,31 @@ const verifyAccount = async (req, res, next) => {
   }
 };
 
+const getLogout = async (req, res) => {
+  req.logout(); // delete users info from session passport
+  req.flash("success", transSuccess.logoutSuccess);
+  return res.redirect("/login-register");
+};
+
+const checkLoggedIn = async (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login-register");
+  }
+  next();
+};
+
+const checkLoggedOut = async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+  next();
+};
+
 module.exports = {
   getLoginRegister,
-  getLogout,
   register,
   verifyAccount,
+  getLogout,
+  checkLoggedIn,
+  checkLoggedOut,
 };
