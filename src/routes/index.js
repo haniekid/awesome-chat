@@ -1,11 +1,14 @@
 import express from "express";
+import passport from "passport";
 import { authController, homeController } from "../controllers";
 import { authValidation } from "../validation";
 import initPassportLocal from "../controllers/passportController/local";
-import passport from "passport";
+import initPassportFacebook from "../controllers/passportController/facebook";
+import initPassportGoogle from "../controllers/passportController/google";
 
 // Init all passport
 initPassportLocal();
+initPassportFacebook();
 
 const router = express.Router();
 
@@ -16,9 +19,22 @@ const router = express.Router();
 
 const routes = (app) => {
   router.get("/", authController.checkLoggedIn, homeController.getHome);
+
   router.get("/logout", authController.checkLoggedIn, authController.getLogout);
 
   router.use(authController.checkLoggedOut);
+
+  router.get(
+    "/auth/facebook",
+    passport.authenticate("facebook", { scope: ["email"] })
+  );
+  router.get(
+    "/auth/facebook/callback",
+    passport.authenticate("facebook", {
+      successRedirect: "/",
+      failureRedirect: "/login-register",
+    })
+  );
 
   router.get("/login-register", authController.getLoginRegister);
   router.post(

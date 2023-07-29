@@ -31,6 +31,7 @@ const register = (email, password, gender, protocol, host) => {
     };
 
     const user = await User.createNew(userInfo);
+    console.log(user);
 
     // send mail
     const linkVerify = `${protocol}://${host}/verify/${user.local.verifyToken}`;
