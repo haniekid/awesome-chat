@@ -9,6 +9,7 @@ import initPassportGoogle from "../controllers/passportController/google";
 // Init all passport
 initPassportLocal();
 initPassportFacebook();
+initPassportGoogle();
 
 const router = express.Router();
 
@@ -31,6 +32,18 @@ const routes = (app) => {
   router.get(
     "/auth/facebook/callback",
     passport.authenticate("facebook", {
+      successRedirect: "/",
+      failureRedirect: "/login-register",
+    })
+  );
+
+  router.get(
+    "/auth/google",
+    passport.authenticate("google", { scope: ["email"] })
+  );
+  router.get(
+    "/auth/google/callback",
+    passport.authenticate("google", {
       successRedirect: "/",
       failureRedirect: "/login-register",
     })
